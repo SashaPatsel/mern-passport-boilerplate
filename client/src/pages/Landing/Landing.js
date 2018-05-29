@@ -8,8 +8,39 @@ import Card from "../../components/Card/Card.js"
 class Landing extends Component {
   state = {
     userName: "",
-    email: ""
+    email: "",
+    password: "",
+    password2: ""
   }
+
+  handleInputChange = event => {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+    if (this.state.userName && this.state.email && this.state.password && this.state.password2) {
+      console.log("1")
+      if (this.state.password === this.state.password2) {
+        console.log("2")
+        API.createUser({
+          userName: this.state.userName,
+          email: this.state.email,
+          password: this.state.password
+        })
+          .then(res => this.loadBooks())
+          .catch(err => console.log(err));
+      } else {
+        console.log("please make sure your passwords match")
+      }
+    } else {
+      console.log("please make sure you fill out all the fields")
+    }
+
+  };
 
   render() {
     return (
@@ -37,9 +68,9 @@ class Landing extends Component {
                 type="password"
               />
               <Input
-                value={this.state.password}
+                value={this.state.password2}
                 onChange={this.handleInputChange}
-                name="password"
+                name="password2"
                 placeholder="re-enter password"
                 type="password"
               />

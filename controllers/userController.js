@@ -1,16 +1,16 @@
-const db = require("../models");
-
+// const db = require("../models");
+const User = require("../models/user.js");
 // Defining methods for the booksController
 module.exports = {
   findAll: function(req, res) {
-    db.User
+    User
       .find(req.query)
       .sort({ date: -1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
   create: function(req, res) {
-    db.User
+    User
       .create(req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
