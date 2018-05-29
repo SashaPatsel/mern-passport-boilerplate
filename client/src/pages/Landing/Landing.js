@@ -23,9 +23,7 @@ class Landing extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.userName && this.state.email && this.state.password && this.state.password2) {
-      console.log("1")
       if (this.state.password === this.state.password2) {
-        console.log("2")
         API.createUser({
           userName: this.state.userName,
           email: this.state.email,

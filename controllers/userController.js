@@ -1,6 +1,6 @@
-// const db = require("../models");
+
 const User = require("../models/user.js");
-// Defining methods for the booksController
+// Defining methods for userController
 module.exports = {
   findAll: function(req, res) {
     User
