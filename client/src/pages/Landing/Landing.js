@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API"
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./landing.css"
 import { Input, TextArea, FormBtn } from "../../components/Form";
 import Card from "../../components/Card/Card.js"
@@ -10,7 +10,8 @@ class Landing extends Component {
     userName: "",
     email: "",
     password: "",
-    password2: ""
+    password2: "",
+    signedUp: false
   }
 
   handleInputChange = event => {
@@ -20,6 +21,13 @@ class Landing extends Component {
     });
   };
 
+  // redirect() {
+  //   if (this.state.signedUp === true) {
+  //     <Redirect to="/home"/>
+  //     console.log(this.state.signedUp)
+  //   }
+  // }
+
   handleFormSubmit = event => {
     event.preventDefault();
     if (this.state.userName && this.state.email && this.state.password && this.state.password2) {
@@ -28,8 +36,15 @@ class Landing extends Component {
           userName: this.state.userName,
           email: this.state.email,
           password: this.state.password
-        })
-          .then(res => this.loadBooks())
+        }).then(res => {
+            console.log(res.data)
+    
+            this.setState({
+              signedUp: true
+            })
+            console.log(this.state.signedUp)
+            this.props.history.push('/home')
+          })
           .catch(err => console.log(err));
       } else {
         console.log("please make sure your passwords match")
@@ -41,6 +56,7 @@ class Landing extends Component {
   };
 
   render() {
+
     return (
       <div>
         <div className="dead-center">
