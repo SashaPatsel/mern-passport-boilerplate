@@ -11,22 +11,15 @@ class Landing extends Component {
     email: "",
     password: "",
     password2: "",
-    signedUp: false
   }
 
+  //Pull from state in order to post user info
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({
       [name]: value
     });
   };
-
-  // redirect() {
-  //   if (this.state.signedUp === true) {
-  //     <Redirect to="/home"/>
-  //     console.log(this.state.signedUp)
-  //   }
-  // }
 
   handleFormSubmit = event => {
     event.preventDefault();
@@ -37,13 +30,7 @@ class Landing extends Component {
           email: this.state.email,
           password: this.state.password
         }).then(res => {
-            console.log(res.data)
-    
-            this.setState({
-              signedUp: true
-            })
-            console.log(this.state.signedUp)
-            this.props.history.push('/home')
+          window.location.href = "/home";
           })
           .catch(err => console.log(err));
       } else {
