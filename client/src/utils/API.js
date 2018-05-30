@@ -17,10 +17,11 @@ export default {
   saveBook: function(bookData) {
     return axios.post("/api/books", bookData);
   },
-
   //Post new user
   createUser: function(userData) {
-    return axios.post("/api/user", userData)
+    return axios.post("/api/user/", userData)
+  },
+  authenticateUser: function(userData) {
+    return axios.post("/auth/signup", userData)
   }
-  
 };
