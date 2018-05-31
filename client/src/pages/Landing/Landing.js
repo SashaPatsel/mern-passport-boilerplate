@@ -25,7 +25,7 @@ class Landing extends Component {
     event.preventDefault();
     if (this.state.userName && this.state.email && this.state.password && this.state.password2) {
       if (this.state.password === this.state.password2) {
-        API.authenticateUser({
+        API.createUser({
           userName: this.state.userName,
           email: this.state.email,
           password: this.state.password

@@ -19,7 +19,7 @@ export default {
   },
   //Post new user
   createUser: function(userData) {
-    return axios.post("/api/user/", userData)
+    return axios.post("/api/user/signup", userData)
   },
   authenticateUser: function(userData) {
     return axios.post("/auth/signup", userData)
