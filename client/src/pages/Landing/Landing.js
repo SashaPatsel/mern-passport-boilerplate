@@ -30,6 +30,7 @@ class Landing extends Component {
           email: this.state.email,
           password: this.state.password
         }).then(res => {
+          console.log("yo?")
           window.location.href = "/home";
           })
           .catch(err => console.log(err));

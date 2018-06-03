@@ -2,7 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-// const routes = require("./routes/api/api.js");
+const session = require("express-session");
+var passport = require('passport')
+  , LocalStrategy = require('passport-local').Strategy;
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -16,6 +18,14 @@ app.use(express.static("client/build"));
 require("./routes/api/api.js")(app);
 
 app.use(cookieParser());
+
+
+
+  app.use(express.static('public'));
+ 
+  app.use(passport.initialize());
+  app.use(passport.session());
+
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern");
