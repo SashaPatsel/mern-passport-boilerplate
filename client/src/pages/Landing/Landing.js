@@ -25,14 +25,32 @@ class Landing extends Component {
     event.preventDefault();
     if (this.state.userName && this.state.email && this.state.password && this.state.password2) {
       if (this.state.password === this.state.password2) {
-        API.authenticateUser({
-          userName: this.state.userName,
-          email: this.state.email,
-          password: this.state.password
-        }).then(res => {
-          window.location.href = "/home";
+
+        //Use fetch here because it deals with cors more effectively than axios. This allows easy cookie storage
+        fetch("/auth/signup", {
+          method: "POST",
+          credentials: "include",
+          mode: "cors",
+          body: JSON.stringify({
+            email: this.state.email,
+            password: this.state.password,
+            userName: this.state.userName
+          }),
+          headers: new Headers({
+            "Content-Type": "application/json"
           })
-          .catch(err => console.log(err));
+        }).then(response => {
+          console.log(response);
+    
+          window.location.href = "/home";
+        }).catch(err => console.log(err));
+    
+        // this.setState({
+        //   userName: "",
+        //   email: "",
+        //   password: "",
+        //   password2: ""
+        // });
       } else {
         console.log("please make sure your passwords match")
       }

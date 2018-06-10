@@ -8,24 +8,25 @@ var db = require("../models");
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
-  console.log("jknhbgvcfdxzx",req.body)
+  res.cookie("username",req.body.userName)
   passport.authenticate("local-signup", (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
+    res.cookie("userna",req.body.userName)
+    // if (err) {
+    //   return next(err);
+    // }
 
-    if(!user) {
-      return res.redirect("/");
-    }
+    // if(!user) {
+    //   return res.redirect("/");
+    // }
 
     req.login(user, (err) => {
+      res.cookie("use", req.body.userName)
       if (err) {
+        console.log("auth error")
         return next(err);
       }
-     console.log("mko",user)
-     console.log("jrnefk", req.user)
-      res.cookie("user_id", req.user.dataValues.id);
-      res.cookie("user_name", req.user.dataValues.userName);
+      res.cookie("chickenbaconfarley","chickenbaconfarley")
+      res.cookie("user_name", user.userName);
     })
   }) (req, res, next);
 });
@@ -45,7 +46,7 @@ router.post("/signin", (req, res, next) => {
       if (err) {
         return next(err);
       }
-      
+      res.cookie("chickenbaconfarley","chickenbaconfarley")
       res.cookie("user_id", req.user.id);
       res.cookie("user_name", req.user.userName);
       return res.redirect("/")

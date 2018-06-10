@@ -23,11 +23,6 @@ module.exports = function (app) {
     const userName = req.body.userName
     const email = req.body.email
     const password = req.body.password
-    //Make sure all fields are not empty in signup form
-    // req.checkBody("userName", "User Name is required").notEmpty()
-    // req.checkBody("email", "Email is required").notEmpty()
-    // req.checkBody("email", "Email is not valid").isEmail()
-    // req.checkBody("password", "Password is require").notEmpty()
 
     const newUser = new User({
       userName: userName,

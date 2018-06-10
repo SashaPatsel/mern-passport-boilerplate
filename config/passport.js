@@ -10,8 +10,8 @@ var bCrypt = require("bcrypt-nodejs");
 
 // Passport session setup
 passport.serializeUser(function(user, done) {
-    console.log("serialize" + user.id);
-    done(null, user.id);
+    console.log("serialize" + user._id);
+    done(null, user._id);
 });
 
 // used to deserialize the user
@@ -34,13 +34,13 @@ passport.use('local-signup', new LocalStrategy({
 
     },
     function(req, email, password, done) {
-      console.log(email, password)
         process.nextTick(function() {
             User.find({
                 email: email
             }).then(function(user) {
-                if (user.length > 1) {
+                if (user.length > 0) {
                     console.log('signupMessage', 'That email is already taken.');
+                    
                     return done(null, false, { message: 'That email is already taken.' });
                 } else {
 
@@ -51,7 +51,6 @@ passport.use('local-signup', new LocalStrategy({
                         password: userPassword,
                         authMethod: "local"
                     }
-                    console.log(newUser)
                     User.create(newUser).then(function(dbUser, created) {
                         if (!dbUser) {
                             return done(null, false);
