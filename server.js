@@ -19,7 +19,7 @@ app.use(express.static("client/build"));
 require("./routes/api/api.js")(app);
 
 app.use(cookieParser());
-app.use(expressValidator(middlewareOptions));
+// app.use(expressValidator(middlewareOptions));
 
 
 app.use(express.static('public'));

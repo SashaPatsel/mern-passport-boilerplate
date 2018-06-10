@@ -1,4 +1,4 @@
-const user = require("../../models/user.js")
+const User = require("../../models/user.js")
 var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
@@ -19,13 +19,28 @@ passport.use(new LocalStrategy(
 
 
 module.exports = function (app) {
-  app.post("/signup", passport.authenticate('local'), function (req, res) {
+  app.post("/signup", function (req, res) {
     const userName = req.body.userName
-    req.checkBody("userName", "User Name is required").notEmpty()
-    req.checkBody("email", "Email is required").notEmpty()
-    req.checkBody("email", "Email is not valid").isEmail()
-    req.checkBody("password", "Password is require").notEmpty()
+    const email = req.body.email
+    const password = req.body.password
+    //Make sure all fields are not empty in signup form
+    // req.checkBody("userName", "User Name is required").notEmpty()
+    // req.checkBody("email", "Email is required").notEmpty()
+    // req.checkBody("email", "Email is not valid").isEmail()
+    // req.checkBody("password", "Password is require").notEmpty()
 
-    user.create(req.body)
+    const newUser = new User({
+      userName: userName,
+      email: email,
+      password: password
+
+    })
+console.log(User)
+    // User.createUser(newUser, function(err, user) {
+
+    //   console.log(user)
+    // })
+
+    // user.create(req.body)
   })
 }
