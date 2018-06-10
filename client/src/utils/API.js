@@ -22,6 +22,6 @@ export default {
     return axios.post("/api/user/signup", userData)
   },
   authenticateUser: function(userData) {
-    return axios.post("/signup", userData)
+    return axios.post("auth/signup", userData)
   }
 };

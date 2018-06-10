@@ -3,10 +3,10 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const session = require("express-session");
-var passport = require('passport')
+const passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 const app = express();
-const expressValidator = require("express-validator")
+const passportSetup = require("./config/passport");
 const PORT = process.env.PORT || 3001;
 
 // Configure body parser for AJAX requests
@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use(express.static("client/build"));
 // Add routes, both API and view
 // app.use(routes);
-require("./routes/api/api.js")(app);
+
 
 app.use(cookieParser());
 // app.use(expressValidator(middlewareOptions));
@@ -26,7 +26,18 @@ app.use(express.static('public'));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+cookie: {
+  expires: 60 *1000,
+  httpOnly: false
+}
+}));
+require("./routes/api/api.js")(app);
+const authRoutes = require("./routes/auth");
+app.use("/auth", authRoutes);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern");
