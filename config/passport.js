@@ -34,31 +34,25 @@ passport.use('local-signup', new LocalStrategy({
 
     },
     function(req, email, password, done) {
+      console.log(email, password)
         process.nextTick(function() {
             User.find({
-                    email: email
+                email: email
             }).then(function(user) {
-                // if (err) 
-                //     return done(err);
-
-                if (user) {
+                if (user.length > 1) {
                     console.log('signupMessage', 'That email is already taken.');
                     return done(null, false, { message: 'That email is already taken.' });
                 } else {
 
-                    console.log("firstname" + req.body.firstname);
-                    console.log("lastname" + req.body.lastname);
-                    console.log("email" + req.body.email);
-
-                    var userPassword = generateHash(password);
-                    User.create({
-                        firstName: req.body.firstname,
-                        lastName: req.body.lastname,
-                        userName: (req.body.firstname + " " + req.body.lastname),
+                    const userPassword = generateHash(req.body.password);
+                    const newUser = {
+                        userName: req.body.userName,
                         email: req.body.email,
                         password: userPassword,
                         authMethod: "local"
-                    }).then(function(dbUser, created) {
+                    }
+                    console.log(newUser)
+                    User.create(newUser).then(function(dbUser, created) {
                         if (!dbUser) {
                             return done(null, false);
                         } else {
@@ -84,10 +78,8 @@ passport.use('local-signin', new LocalStrategy({
             return bCrypt.compareSync(password, userpass);
         }
 
-        User.findOne({
-            where: {
+        User.find({
                 email: email
-            }
         }).then(function(user) {
             if (!user) {
                 return done(null, false, {

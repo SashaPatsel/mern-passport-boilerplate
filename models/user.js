@@ -9,7 +9,7 @@ var UserSchema = new Schema({
   // `username` must be of type String
   // `username` will trim leading and trailing whitespace before it's saved
   // `username` is a required field and throws a custom error message if not supplied
-  username: {
+  userName: {
     type: String,
     trim: true,
     required: "Username is Required"
@@ -38,6 +38,12 @@ var UserSchema = new Schema({
     unique: true,
     match: [/.+@.+\..+/, "Please enter a valid e-mail address"]
   },
+  authMethod: {
+    type: String
+},
+socialID: {
+    type: String
+},
   // `date` must be of type Date. The default value is the current date
   userCreated: {
     type: Date,

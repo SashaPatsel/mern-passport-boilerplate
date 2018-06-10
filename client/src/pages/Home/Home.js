@@ -6,11 +6,33 @@ import "./home.css"
 
 class Home extends Component {
   state = {
-    name: "Lucy",
-
+    name: "Timmy",
+    matches: [],
+    offers: [],
+    UserID: ""
   }
 
+  componentDidMount() {
+    this.getUserId();
+    this.readCookies();
+  }
+readCookies() {
+  const cookie = document.cookie.split(";");
+    console.log("cookie", cookie)
+    // if (document.cookie.length < 1) {
+    //   window.location.href = "/";
+    // }
+}
 
+  getUserId = () => {
+    const cookie = document.cookie.split(";");
+    console.log("cookie", cookie)
+    let userID = cookie[0];
+    userID = userID.split("=");
+    userID = userID[1];
+    console.log("userID:", userID);
+    this.setState({ UserId: userID });
+  }
 
   render() {
     return (

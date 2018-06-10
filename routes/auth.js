@@ -8,6 +8,7 @@ var db = require("../models");
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
+  console.log("jknhbgvcfdxzx",req.body)
   passport.authenticate("local-signup", (err, user, info) => {
     if (err) {
       return next(err);
@@ -21,10 +22,10 @@ router.post("/signup", (req, res, next) => {
       if (err) {
         return next(err);
       }
-    
+     console.log("mko",user)
+     console.log("jrnefk", req.user)
       res.cookie("user_id", req.user.dataValues.id);
       res.cookie("user_name", req.user.dataValues.userName);
-      return res.redirect("/")
     })
   }) (req, res, next);
 });
