@@ -25,12 +25,11 @@ class Landing extends Component {
     event.preventDefault();
     if (this.state.userName && this.state.email && this.state.password && this.state.password2) {
       if (this.state.password === this.state.password2) {
-        API.createUser({
+        API.authenticateUser({
           userName: this.state.userName,
           email: this.state.email,
           password: this.state.password
         }).then(res => {
-          console.log("yo?")
           window.location.href = "/home";
           })
           .catch(err => console.log(err));
@@ -66,14 +65,14 @@ class Landing extends Component {
                 value={this.state.password}
                 onChange={this.handleInputChange}
                 name="password"
-                placeholder="password"
+                placeholder="Password"
                 type="password"
               />
               <Input
                 value={this.state.password2}
                 onChange={this.handleInputChange}
                 name="password2"
-                placeholder="re-enter password"
+                placeholder="Confirm password"
                 type="password"
               />
               <FormBtn

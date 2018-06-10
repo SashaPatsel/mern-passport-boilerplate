@@ -3,7 +3,7 @@ var passport = require('passport')
   , LocalStrategy = require('passport-local').Strategy;
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
+  function (username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
       if (!user) {
@@ -18,8 +18,14 @@ passport.use(new LocalStrategy(
 ));
 
 
-module.exports = function(app) {
-  app.post("/api/user/signup", passport.authenticate('local'),function(req, res) {
+module.exports = function (app) {
+  app.post("/signup", passport.authenticate('local'), function (req, res) {
+    const userName = req.body.userName
+    req.checkBody("userName", "User Name is required").notEmpty()
+    req.checkBody("email", "Email is required").notEmpty()
+    req.checkBody("email", "Email is not valid").isEmail()
+    req.checkBody("password", "Password is require").notEmpty()
+
     user.create(req.body)
   })
 }
