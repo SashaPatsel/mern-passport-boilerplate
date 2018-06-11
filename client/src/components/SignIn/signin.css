@@ -1,0 +1,9 @@
+.right {
+  display: flex; 
+  display: inline-block; 
+  text-align: right;
+}
+
+.space {
+  margin-right: 5px;
+}

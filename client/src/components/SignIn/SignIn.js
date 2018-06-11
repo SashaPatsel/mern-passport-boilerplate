@@ -54,6 +54,7 @@ state = {
         <div className="row">
         </div>
         <form>
+          <div className="float-left right space">
           <Input
             value={this.state.email}
             name="email"
@@ -61,6 +62,8 @@ state = {
             type="text"
             placeholder="Email Address"
           />
+          </div>
+          <div className="float-left right space">
           <Input
             value={this.state.password}
             name="password"
@@ -68,8 +71,11 @@ state = {
             type="password"
             placeholder="Password"
           />
-          <FormBtn onClick={this.handleFormSubmit}/> Sign In
-          <FormBtn/>
+          </div>
+          <div className="float-left">
+          <FormBtn onClick={this.handleFormSubmit}> Sign In
+          </FormBtn>
+          </div>
         </form>
       </div>
     );

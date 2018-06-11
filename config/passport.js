@@ -1,12 +1,14 @@
+//encrypts Oauth keys
 require("dotenv").config();
-var passport = require("passport");
-var LocalStrategy = require("passport-local");
-var GoogleStrategy = require("passport-google-oauth20");
-var FacebookStrategy = require("passport-facebook");
-var keys = require("../keys.js");
-var db = require("../models");
-var User = require("../models/user.js");
-var bCrypt = require("bcrypt-nodejs");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const GoogleStrategy = require("passport-google-oauth20");
+const FacebookStrategy = require("passport-facebook");
+const keys = require("../keys.js");
+const db = require("../models");
+const User = require("../models/user.js");
+//middleware to encrypt passwords
+const bCrypt = require("bcrypt-nodejs");
 
 // Passport session setup
 passport.serializeUser(function(user, done) {
@@ -73,7 +75,7 @@ passport.use('local-signin', new LocalStrategy({
     },
     function(req, email, password, done) {
 
-        var isValidPassword = function(userpass, password) {
+        const isValidPassword = function(userpass, password) {
             return bCrypt.compareSync(password, userpass);
         }
 
@@ -92,7 +94,7 @@ passport.use('local-signin', new LocalStrategy({
                 });
             }
 
-            var userinfo = user.get();
+            const userinfo = user.get();
             return done(null, userinfo);
 
 

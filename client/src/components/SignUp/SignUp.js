@@ -47,7 +47,9 @@ class SignUp extends Component {
     return (
       <div>
         <div className="dead-center">
+        <h2 className="center">Join Us!</h2>
           <Card>
+            
             <form>
               <Input
                 value={this.state.userName}

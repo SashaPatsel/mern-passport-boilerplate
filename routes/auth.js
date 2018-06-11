@@ -62,7 +62,7 @@ router.get("/google",
 );
 
 //auth google callback
-router.get("/google/callback", passport.authenticate('google'), function(req, res) {
+router.get("/google/callback", passport.authenticate('google'), (req, res) => {
     res.cookie("user_id", req.user.dataValues.id);
     res.cookie("user_name", req.user.dataValues.userName);
     return res.redirect("/");
@@ -76,7 +76,7 @@ router.get("/facebook",
 );
 
 //auth facebook callback
-router.get("/facebook/callback", passport.authenticate('facebook'), function(req, res) {
+router.get("/facebook/callback", passport.authenticate('facebook'), (req, res) => {
     res.cookie("user_id", req.user.dataValues.id);
     res.cookie("user_name", req.user.dataValues.userName);
     return res.redirect("/");

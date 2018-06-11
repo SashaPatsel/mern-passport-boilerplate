@@ -1,10 +1,20 @@
 import React from "react";
+import SignIn from "../SignIn/SignIn.js"
+import "./nav.css"
 
 const Nav = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a className="navbar-brand" href="/">
-      MERN w/ Passport!
-    </a>
+  <nav className="navbar navbar-expand-lg navbar-dark mern-nav">
+      <div className="col-md-2">
+        <a className="navbar-brand" href="/">
+          MERN w/ Passport!
+        </a>
+      </div>
+      <div className="col-md-5"></div>
+      <div className="col-md-5">
+        <div className="right-align">
+          <SignIn />
+        </div>
+      </div>
   </nav>
 );
 
