@@ -80,7 +80,7 @@ passport.use('local-signin', new LocalStrategy({
         User.find({
                 email: email
         }).then(function(user) {
-            if (!user) {
+            if (user.length > 0) {
                 return done(null, false, {
                     message: 'Email does not exist'
                 });
