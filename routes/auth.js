@@ -8,9 +8,9 @@ var db = require("../models");
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
-  res.cookie("username",req.body.userName)
+ 
   passport.authenticate("local-signup", (err, user, info) => {
-    res.cookie("userna",req.body.userName)
+    //Cookies do not work with these error-catchers, but error-catchers also don't return any errors 🤔
     // if (err) {
     //   return next(err);
     // }
@@ -20,7 +20,7 @@ router.post("/signup", (req, res, next) => {
     // }
 
     req.login(user, (err) => {
-      res.cookie("use", req.body.userName)
+      res.cookie("userName", req.body.userName)
       if (err) {
         console.log("auth error")
         return next(err);
