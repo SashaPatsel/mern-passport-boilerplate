@@ -6,16 +6,38 @@ import "./home.css"
 
 class Home extends Component {
   state = {
-    name: "Lucy",
-
+    name: "Timmy",
+    matches: [],
+    offers: [],
+    userName: ""
   }
 
+  componentDidMount() {
+    this.getUserId();
+    this.readCookies();
+  }
+readCookies() {
+  const cookie = document.cookie.split(";");
+    console.log("cookie", cookie)
+    // if (document.cookie.length < 1) {
+    //   window.location.href = "/";
+    // }
+}
 
+  getUserId = () => {
+    const cookie = document.cookie.split(";");
+    console.log("cookie", cookie)
+    let userName = cookie[0];
+    userName = userName.split("=");
+    userName = userName[1];
+    console.log("userName:", userName);
+    this.setState({ userName: userName });
+  }
 
   render() {
     return (
       <div>
-        <h1>Hello, {this.state.name}</h1>
+        <h1>Hello, {this.state.userName}</h1>
       </div>
     )
   }
