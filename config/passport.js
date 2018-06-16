@@ -45,7 +45,6 @@ passport.use('local-signup', new LocalStrategy({
                     
                     return done(null, false, { message: 'That email is already taken.' });
                 } else {
-
                     const userPassword = generateHash(req.body.password);
                     const newUser = {
                         userName: req.body.userName,

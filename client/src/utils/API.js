@@ -28,5 +28,8 @@ export default {
      data: userData,
      withCredentials: true
     })
+  },
+  logout: function(){
+    return axios("/auth/logout")
   }
 };

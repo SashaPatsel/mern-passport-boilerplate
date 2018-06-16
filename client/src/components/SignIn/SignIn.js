@@ -50,9 +50,7 @@ state = {
 
   render() {
     return (
-      <div>
-        <div className="row">
-        </div>
+      <div className="mern-signin">
         <form>
           <div className="float-left right space">
           <Input

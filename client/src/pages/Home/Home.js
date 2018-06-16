@@ -34,10 +34,17 @@ readCookies() {
     this.setState({ userName: userName });
   }
 
+  logout = () => {
+    API.logout().then(res => {
+      console.log("ya did it")
+    }) 
+  }
+
   render() {
     return (
       <div>
         <h1>Hello, {this.state.userName}</h1>
+       <a href="/"> <button onClick={this.logout}>Sign Out</button></a>
       </div>
     )
   }
