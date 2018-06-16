@@ -35,14 +35,12 @@ state = {
     }).then(response  => {
       console.log(response)
 
-      window.location.href = "/";
+      window.location.href = "/home";
     }).catch(err => {
       console.log(err);
     })
 
     this.setState({
-      firstname: "",
-      lastname: "",
       email: "",
       password: ""
     });

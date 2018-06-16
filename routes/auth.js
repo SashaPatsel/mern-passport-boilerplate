@@ -36,15 +36,16 @@ router.post("/signup", (req, res, next) => {
 //local auth sign in
 router.post("/signin", (req, res, next) => {
   passport.authenticate("local-signin", (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
+    // if (err) {
+    //   return next(err);
+    // }
 
-    if (!user) {
-      return res.redirect("/");
-    }
+    // if (!user) {
+    //   return res.redirect("/");
+    // }
 
     req.login(user, (err) => {
+      res.cookie("userName", req.body.email)
       if (err) {
         return next(err);
       }
