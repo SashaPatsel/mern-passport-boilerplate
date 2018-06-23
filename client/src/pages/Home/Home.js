@@ -36,7 +36,6 @@ readCookies() {
 
   logout = () => {
     API.logout().then(res => {
-      console.log("ya did it")
     }) 
   }
 
