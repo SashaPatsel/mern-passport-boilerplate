@@ -34,8 +34,8 @@ state = {
       })
     }).then(response  => {
       console.log(response)
-
-      window.location.href = "/home";
+      //Will redirect to root route no matter what. Successful signin will create cookies. If cookies are detected, root route will redirect to Home, otherwise, to Landing
+      window.location.href = "/";
     }).catch(err => {
       console.log(err);
     })

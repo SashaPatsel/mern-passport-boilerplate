@@ -42,15 +42,15 @@ class SignUp extends Component {
         }).then(response => {
           console.log(response);
     
-          window.location.href = "/home";
+          window.location.href = "/";
         }).catch(err => console.log(err));
     
-        // this.setState({
-        //   userName: "",
-        //   email: "",
-        //   password: "",
-        //   password2: ""
-        // });
+        this.setState({
+          userName: "",
+          email: "",
+          password: "",
+          password2: ""
+        });
       } else {
         console.log("please make sure your passwords match")
       }

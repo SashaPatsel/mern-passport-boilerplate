@@ -7,8 +7,6 @@ import Card from "../../components/Card/Card.js"
 import SignUp from "../../components/SignUp/SignUp.js"
 
 class Landing extends Component {
-
-
   render() {
 
     return (

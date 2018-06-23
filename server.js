@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const flash = require('express-flash-messages')
 const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require('passport')
@@ -19,6 +20,7 @@ app.use(express.static("client/build"));
 
 
 app.use(cookieParser());
+app.use(flash())
 // app.use(expressValidator(middlewareOptions));
 
 

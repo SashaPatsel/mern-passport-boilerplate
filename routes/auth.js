@@ -1,32 +1,37 @@
-var express = require("express");
-var router = express.Router();
-var path = require("path");
-var passport = require("passport");
-var LocalStrategy = require("passport-local");
-var GoogleStrategy = require("passport-google-oauth20");
-var db = require("../models");
+const express = require("express");
+const router = express.Router();
+const path = require("path");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const GoogleStrategy = require("passport-google-oauth20");
+const db = require("../models");
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
-
+  res.cookie("userName", req.body.userName) 
   passport.authenticate("local-signup", (err, user, info) => {
     //Cookies do not work with these error-catchers, but error-catchers also don't return any errors 🤔
-    // if (err) {
-    //   return next(err);
-    // }
-
-    // if(!user) {
+    if (err) {
+      console.log(err)
+      return next(err);
+    }
+    // if (!user) {
+    //   console.log("not a user")
     //   return res.redirect("/");
     // }
-
     req.login(user, (err) => {
-      res.cookie("userName", req.body.userName)
+     
       if (err) {
         console.log("auth error")
         return next(err);
+      } else {
+        res.cookie("userName", req.user.userName);
+        res.cookie("email", req.body.email)
+        res.cookie("user_id", req.user.id);
+        console.log("confrim")
+        return res.redirect("/");
       }
-      res.cookie("chickenbaconfarley", "chickenbaconfarley")
-      res.cookie("user_name", user.userName);
+
     })
   })(req, res, next);
 });
@@ -36,20 +41,22 @@ router.post("/signup", (req, res, next) => {
 //local auth sign in
 router.post("/signin", (req, res, next) => {
   passport.authenticate("local-signin", (err, user, info) => {
-    // if (err) {
-    //   return next(err);
-    // }
+    if (err) {
+      console.log("41", err)
+      return next(err);
+    }
 
-    // if (!user) {
-    //   return res.redirect("/");
-    // }
+    if (!user) {
+      console.log("not a user")
+      req.flash('notify', 'This is a test notification.')
+      return res.redirect("/");
+    }
 
     req.login(user, (err) => {
-      res.cookie("userName", req.body.email)
+      res.cookie("email", req.body.email)
       if (err) {
         return next(err);
       }
-      res.cookie("chickenbaconfarley", "chickenbaconfarley")
       res.cookie("user_id", req.user.id);
       res.cookie("user_name", req.user.userName);
       return res.redirect("/")
@@ -62,6 +69,7 @@ router.get("/logout", function (req, res) {
   req.session.destroy(function (err) {
     res.clearCookie("user_id");
     res.clearCookie("userName");
+    res.clearCookie("email");
     res.clearCookie("connect.sid");
     res.redirect("/");
     console.log("Hello from the other side.")
