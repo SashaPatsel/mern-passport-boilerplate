@@ -1,3 +1,9 @@
 .mern-nav {
   background-color: rgb(14,84,154);
 }
+
+.right-align {
+  position: absolute;
+  right: 150px;
+  top: 7px;
+}
