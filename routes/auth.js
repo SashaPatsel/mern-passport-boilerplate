@@ -8,7 +8,6 @@ const db = require("../models");
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
-  res.cookie("userName", req.body.userName) 
   passport.authenticate("local-signup", (err, user, info) => {
     //Cookies do not work with these error-catchers, but error-catchers also don't return any errors 🤔
     if (err) {
@@ -49,14 +48,14 @@ router.post("/signin", (req, res, next) => {
     if (!user) {
       console.log("not a user")
       req.flash('notify', 'This is a test notification.')
-      return res.redirect("/");
+      // return res.redirect("/");
     }
 
     req.login(user, (err) => {
-      res.cookie("email", req.body.email)
       if (err) {
         return next(err);
       }
+      res.cookie("email", req.body.email)
       res.cookie("user_id", req.user.id);
       res.cookie("user_name", req.user.userName);
       return res.redirect("/")

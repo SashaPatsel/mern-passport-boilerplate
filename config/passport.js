@@ -56,6 +56,7 @@ passport.use('local-signup', new LocalStrategy({
                         if (!dbUser) {
                             return done(null, false);
                         } else {
+                            // console.log("id", dbUser)
                             return done(null, dbUser);
                         }
                     })
