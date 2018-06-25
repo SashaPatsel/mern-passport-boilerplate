@@ -8,7 +8,6 @@ const db = require("../models");
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
-  
   passport.authenticate("local-signup", (err, user, info) => {
      console.log(user)
     if (err) {
@@ -41,6 +40,7 @@ router.post("/signup", (req, res, next) => {
 
 //local auth sign in
 router.post("/signin", (req, res, next) => {
+
   passport.authenticate("local-signin", (err, user, info) => {
     console.log("43",user)
     if (err) {
@@ -69,6 +69,9 @@ router.post("/signin", (req, res, next) => {
 router.get("/logout", function (req, res) {
   console.log("Hello, it's me")
   req.session.destroy(function (err) {
+    if (err) {
+      console.log(err)
+    }
     res.clearCookie("user_id");
     res.clearCookie("userName");
     res.clearCookie("email");
