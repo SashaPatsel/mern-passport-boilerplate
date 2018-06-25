@@ -26,8 +26,7 @@ app.use(flash())
 
 app.use(express.static('public'));
 
-app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -37,6 +36,14 @@ cookie: {
   httpOnly: false
 }
 }));
+
+//change this to your own mongo collection
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern");
+
+// Init passport authentication 
+app.use(passport.initialize());
+// persistent login sessions 
+app.use(passport.session());
 
 // enable CORS so that browsers don't block requests.
 app.use((req, res, next) => {
@@ -53,7 +60,7 @@ const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern");
+
 
 // Start the API server
 app.listen(PORT, function () {

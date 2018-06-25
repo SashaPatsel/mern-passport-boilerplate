@@ -21,6 +21,7 @@ passport.deserializeUser(function(id, done) {
     console.log("deserialize" + id);
     User.findById(id).then(function(user) {
         if (user) {
+            console.log("deserialize", user)
             done(null, user.get());
         } else {
             done(user.errors, null);
@@ -56,7 +57,6 @@ passport.use('local-signup', new LocalStrategy({
                         if (!dbUser) {
                             return done(null, false);
                         } else {
-                            // console.log("id", dbUser)
                             return done(null, dbUser);
                         }
                     })
@@ -82,19 +82,23 @@ passport.use('local-signin', new LocalStrategy({
         User.find({
                 email: email
         }).then(function(user) {
-            if (user.length > 0) {
+            console.log("user", user)
+            if (user.length <= 0) {
+                console.log("'Email does not exist'")
                 return done(null, false, {
                     message: 'Email does not exist'
                 });
             }
-
+            console.log("yo?ewds")
             if (!isValidPassword(user.password, password)) {
+                console.log("yo?")
                 return done(null, false, {
                     message: 'Incorrect password.'
                 });
             }
-
+            console.log("weo?")
             const userinfo = user.get();
+            console.log(userinfo)
             return done(null, userinfo);
 
 

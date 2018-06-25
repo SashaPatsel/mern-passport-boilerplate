@@ -8,18 +8,20 @@ const db = require("../models");
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
+  
   passport.authenticate("local-signup", (err, user, info) => {
-    //Cookies do not work with these error-catchers, but error-catchers also don't return any errors 🤔
+     console.log(user)
     if (err) {
       console.log(err)
       return next(err);
     }
-    // if (!user) {
-    //   console.log("not a user")
-    //   return res.redirect("/");
-    // }
+
+    if (!user) {
+      console.log("not a user")
+      return res.redirect("/");
+    }
+
     req.login(user, (err) => {
-     
       if (err) {
         console.log("auth error")
         return next(err);
@@ -40,6 +42,7 @@ router.post("/signup", (req, res, next) => {
 //local auth sign in
 router.post("/signin", (req, res, next) => {
   passport.authenticate("local-signin", (err, user, info) => {
+    console.log("43",user)
     if (err) {
       console.log("41", err)
       return next(err);
@@ -48,7 +51,7 @@ router.post("/signin", (req, res, next) => {
     if (!user) {
       console.log("not a user")
       req.flash('notify', 'This is a test notification.')
-      // return res.redirect("/");
+      return res.redirect("/");
     }
 
     req.login(user, (err) => {
