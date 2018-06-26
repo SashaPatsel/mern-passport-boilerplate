@@ -12,8 +12,9 @@ const bCrypt = require("bcrypt-nodejs");
 
 // Passport session setup
 passport.serializeUser(function(user, done) {
-    console.log("serialize" + user._id);
-    done(null, user._id);
+    console.log("user",user,"done", done)
+    console.log("serialize" + user[0]._id);
+    done(null, user[0]._id);
 });
 
 // used to deserialize the user
@@ -89,17 +90,15 @@ passport.use('local-signin', new LocalStrategy({
                     message: 'Email does not exist'
                 });
             }
-            console.log("yo?ewds")
-            if (!isValidPassword(user.password, password)) {
-                console.log("yo?")
-                return done(null, false, {
-                    message: 'Incorrect password.'
-                });
-            }
-            console.log("weo?")
-            const userinfo = user.get();
-            console.log(userinfo)
-            return done(null, userinfo);
+            // if (!isValidPassword(user.password, password)) {
+            //     console.log("yo?")
+            //     return done(null, false, {
+            //         message: 'Incorrect password.'
+            //     });
+            // }
+            // const userinfo = user.get();
+            // console.log(userinfo)
+            return done(null, user);
 
 
         }).catch(function(err) {

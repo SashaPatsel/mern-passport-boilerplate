@@ -58,9 +58,10 @@ router.post("/signin", (req, res, next) => {
       if (err) {
         return next(err);
       }
-      res.cookie("email", req.body.email)
-      res.cookie("user_id", req.user.id);
-      res.cookie("user_name", req.user.userName);
+      console.log("61", user)
+      res.cookie("email", user[0].email)
+      res.cookie("user_id", user[0]._id);
+      res.cookie("userName", user[0].userName);
       return res.redirect("/")
     })
   })(req, res, next);
