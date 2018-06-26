@@ -42,7 +42,6 @@ router.post("/signup", (req, res, next) => {
 router.post("/signin", (req, res, next) => {
 
   passport.authenticate("local-signin", (err, user, info) => {
-    console.log("43",user)
     if (err) {
       console.log("41", err)
       return next(err);
@@ -58,10 +57,10 @@ router.post("/signin", (req, res, next) => {
       if (err) {
         return next(err);
       }
-      console.log("61", user)
+      res.cookie("userName", user[0].userName);
       res.cookie("email", user[0].email)
       res.cookie("user_id", user[0]._id);
-      res.cookie("userName", user[0].userName);
+      //redirect to path containing user id2
       return res.redirect("/")
     })
   })(req, res, next);

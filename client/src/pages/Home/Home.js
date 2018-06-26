@@ -27,7 +27,7 @@ readCookies() {
   getUserId = () => {
     const cookie = document.cookie.split(";");
     console.log("cookie", cookie)
-    let userName = cookie[2];
+    let userName = cookie[0];
     userName = userName.split("=");
     userName = userName[1];
     console.log("userName:", userName);
