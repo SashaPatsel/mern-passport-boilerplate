@@ -4,14 +4,15 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "if-env NODE_ENV=production && npm run server || npm run dev",
     "server": "node server.js",
     "client": "node scripts/start-client.js",
-    "start": "node server.js",
     "dev": "concurrently \"nodemon server.js\" \"npm run client\"",
     "build": "node scripts/build.js",
     "seed": "node scripts/seedDB.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "installDeps": "yarn && cd client && yarn"
+    "installDeps": "yarn && cd client && yarn",
+    "heroku-postbuild": "npm run build"
   },
   "author": "",
   "license": "ISC",
