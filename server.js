@@ -54,7 +54,6 @@ app.use((req, res, next) => {
   next();
 });
 
-require("./routes/api/api.js")(app);
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
 

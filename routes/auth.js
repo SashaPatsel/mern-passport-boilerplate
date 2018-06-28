@@ -4,7 +4,6 @@ const path = require("path");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const GoogleStrategy = require("passport-google-oauth20");
-const db = require("../models");
 const User = require("../models/user.js");
 
 
