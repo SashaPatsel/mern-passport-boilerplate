@@ -6,8 +6,8 @@ const apiRoutes = require("./api");
 router.use("/api", apiRoutes);
 
 // If no API routes are hit, send the React app
-router.use("/").get(function(req, res) {
-  res.send("welcome to nothingness");
-});
+// router.route("/").get(function(req, res) {
+//   res.send("welcome to nothingness");
+// });
 
 module.exports = router;

@@ -15,9 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // Serve up static assets
 app.use(express.static("client/build"));
-// Add routes, both API and view
-// app.use(routes);
-
+// Add routes, both API and views
 
 app.use(cookieParser());
 app.use(flash())
@@ -56,8 +54,6 @@ app.use((req, res, next) => {
 
 const authRoutes = require("./routes/auth");
 app.use("/auth", authRoutes);
-
-// Connect to the Mongo DB
 
 
 // Start the API server
