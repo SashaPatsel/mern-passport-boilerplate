@@ -26,7 +26,6 @@ app.use(flash())
 
 app.use(express.static('public'));
 
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
