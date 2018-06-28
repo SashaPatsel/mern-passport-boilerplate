@@ -6,37 +6,24 @@ import "./home.css"
 
 class Home extends Component {
   //use constructor so that you can give props
-  constructor(props) {
-    super(); // or super(props) ?
-
-    this.state = {
-      name: "Timmy",
-      matches: [],
-      offers: [],
-      userName: props.userName,
-      email: props.email
+state = {
+      isLoggedIn: false,
+      userName: "",
+      email: ""
     }
-  }
-  componentDidMount() {
-    this.getUserId();
-    this.readCookies();
-  }
-  readCookies() {
-    const cookie = document.cookie.split(";");
-    console.log("cookie", cookie)
-    // if (document.cookie.length < 1) {
-    //   window.location.href = "/";
-    // }
-  }
+  
+    componentWillMount(){
+      API.getUser()
+      .then(user=>{
+        console.log(user)
+        this.setState({
+          isLoggedIn: user.data.loggedIn,
+          userName: user.data.userName,
+          email: user.data.email
+        });
+        console.log(this.state)
+      })
 
-  getUserId = () => {
-    const cookie = document.cookie.split(";");
-    console.log("cookie", cookie)
-    let userName = cookie[0];
-    userName = userName.split("=");
-    userName = userName[1];
-    console.log("userName:", userName);
-    this.setState({ userName: userName });
   }
 
   logout = () => {

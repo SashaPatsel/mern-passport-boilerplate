@@ -34,6 +34,8 @@
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
     "passport-http": "^0.3.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "webpack": "^4.13.0",
+    "webpack-cli": "^3.0.8"
   }
 }
