@@ -23,9 +23,9 @@ passport.deserializeUser(function(id, done) {
     User.findById(id).then(function(user) {
         if (user) {
             console.log("deserialize", user)
-            done(null, user.get());
+            done(null, user);
         } else {
-            done(user.errors, null);
+            done(user[0].errors, null);
         }
     });
 });
@@ -83,21 +83,19 @@ passport.use('local-signin', new LocalStrategy({
         User.find({
                 email: email
         }).then(function(user) {
-            console.log("user", user)
-            if (user.length <= 0) {
+            console.log("user", user[0])
+            if (user[0].length <= 0) {
                 console.log("'Email does not exist'")
                 return done(null, false, {
                     message: 'Email does not exist'
                 });
             }
-            // if (!isValidPassword(user.password, password)) {
-            //     console.log("yo?")
-            //     return done(null, false, {
-            //         message: 'Incorrect password.'
-            //     });
-            // }
-            // const userinfo = user.get();
-            // console.log(userinfo)
+            if (!isValidPassword(user[0].password, password)) {
+                console.log("yo?")
+                return done(null, false, {
+                    message: 'Incorrect password.'
+                });
+            }
             return done(null, user);
 
 
