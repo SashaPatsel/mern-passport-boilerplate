@@ -5,24 +5,29 @@ import "./home.css"
 
 
 class Home extends Component {
-  state = {
-    name: "Timmy",
-    matches: [],
-    offers: [],
-    userName: ""
-  }
+  //use constructor so that you can give props
+  constructor(props) {
+    super(); // or super(props) ?
 
+    this.state = {
+      name: "Timmy",
+      matches: [],
+      offers: [],
+      userName: props.userName,
+      email: props.email
+    }
+  }
   componentDidMount() {
     this.getUserId();
     this.readCookies();
   }
-readCookies() {
-  const cookie = document.cookie.split(";");
+  readCookies() {
+    const cookie = document.cookie.split(";");
     console.log("cookie", cookie)
     // if (document.cookie.length < 1) {
     //   window.location.href = "/";
     // }
-}
+  }
 
   getUserId = () => {
     const cookie = document.cookie.split(";");
@@ -36,14 +41,14 @@ readCookies() {
 
   logout = () => {
     API.logout().then(res => {
-    }) 
+    })
   }
 
   render() {
     return (
       <div>
         <h1>Hello, {this.state.userName}</h1>
-       <a href="/"> <button onClick={this.logout}>Sign Out</button></a>
+        <a href="/"> <button onClick={this.logout}>Sign Out</button></a>
       </div>
     )
   }

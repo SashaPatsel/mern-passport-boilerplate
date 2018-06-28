@@ -6,72 +6,75 @@ import Nav from "./components/Nav";
 import Landing from "./pages/Landing/Landing.js";
 import Home from "./pages/Home/Home.js";
 import SP from "./components/SP/SP.js"
+import API from "./utils/API"
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
 
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100) //fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
-  }
+
+class ProxyContainer extends Component {
+state = {
+  isLoggedIn: false,
+  username: "",
+  email: ""
+}
+
+componentWillMount(){
+  API.getUser()
+  .then(user=>{
+    console.log(user)
+    this.setState({
+      isLoggedIn: user.data.loggedIn,
+      username: user.data.username,
+      email: user.data.email
+    });
+  })
 }
 
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    fakeAuth.isAuthenticated === true
-      ? <Component {...props} />
-      : <Redirect to="/login" />
-  )} />
-)
-class ProxyContainer extends Component {
 
   render() {
+    const cookie = document.cookie.split(";");
+    console.log("cookie", cookie)
+    // covert to tru
+    if (this.state.isLoggedIn) {
+      return (
+        <Router>
+            <div>
+              <Nav />
+              <Switch>
+                <Route exact path="/" component={Home} username={this.state.username} email={this.state.email}/>
+                <Route path="/home" 
+                  component={Home} 
+                  username = {this.state.username} 
+                  email={this.state.email} 
+                />
+                <Route component={NoMatch} />
+              </Switch>
+              {/* <SP/> */}
+            </div>
+      
+          </Router>
+        )
+
+    } else {
+
+
     return (
-
       <Router>
-        <div>
-
-          <Link to="/">Landing</Link>
-          <br />
-          <Link to="/home">home </Link>
-
+      <div>
+        <Nav />
+        <Switch>
           <Route path="/" component={Landing} />
-          <Route path="/login" component={Nav} />
-          <PrivateRoute path="/home" component={Home} />
-        </div>
-      </Router>
+        </Switch>
+      </div>
+    </Router>
+     
+
     )
   }
+  }
+
+
 }
 
 export default ProxyContainer;
 
-{/* <Nav />
-          <Switch>
-            <Route path="/" component={Landing} />
-          </Switch> */}
-
-    // const cookie = document.cookie.split(";");
-    // console.log("cookie", cookie)
-    // if (cookie.length > 1) {
-    //   return (
-
-    //     <Router>
-    //       <div>
-    //         <Nav />
-    //         <Switch>
-    //           <Route exact path="/" component={Home} />
-    //           <Route path="/home" component={Home} />
-    //           <Route component={NoMatch} />
-    //         </Switch>
-    //         {/* <SP/> */}
-    //       </div>
-
-    //     </Router>
-    //   )
-    // }

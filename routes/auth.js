@@ -5,11 +5,40 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const GoogleStrategy = require("passport-google-oauth20");
 const db = require("../models");
+const User = require("../models/user.js");
+
+
+router.get("/user", (req, res)=>{
+  if(req.isAuthenticated()){
+    const currentUser = req.session.passport.user;
+
+    // call db and find user by currenUser which is user id
+   // get username and email
+   console.log("hellur",currentUser)
+   User.findOne({_id:currentUser})
+   .then(dbUser=>{
+     const user = {
+      loggedIn: true,
+      userName: dbUser.userName,
+      email: dbUser.email
+     }
+    console.log("25", user)
+     res.json(user);
+   })
+
+  } else {
+  const user = {
+    loggedIn: false,
+    userName: '',
+    email: ''
+  }
+  res.json(user);
+}
+});
 
 //local auth signup
 router.post("/signup", (req, res, next) => {
   passport.authenticate("local-signup", (err, user, info) => {
-     console.log(user)
     if (err) {
       console.log(err)
       return next(err);
@@ -57,11 +86,14 @@ router.post("/signin", (req, res, next) => {
       if (err) {
         return next(err);
       }
+
       res.cookie("userName", user[0].userName);
       res.cookie("email", user[0].email)
       res.cookie("user_id", user[0]._id);
+      var userI = {username: user[0].userName,
+      email: user[0].email}
       //redirect to path containing user id2
-      return res.redirect("/")
+      return res.json(userI)
     })
   })(req, res, next);
 });

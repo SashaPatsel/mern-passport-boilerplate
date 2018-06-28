@@ -22,8 +22,8 @@ passport.deserializeUser(function(id, done) {
     console.log("deserialize" + id);
     User.findById(id).then(function(user) {
         if (user) {
-            console.log("deserialize", user[0])
-            done(null, user[0].get());
+            console.log("deserialize", user)
+            done(null, user);
         } else {
             done(user[0].errors, null);
         }

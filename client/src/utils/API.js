@@ -31,5 +31,8 @@ export default {
   },
   logout: function(){
     return axios("/auth/logout")
+  },
+  getUser: function(){
+    return axios.get("/auth/user");
   }
 };
