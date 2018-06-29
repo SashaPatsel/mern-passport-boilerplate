@@ -31,7 +31,7 @@ cookie: {
 }
 }));
 
-
+mongoose.Promise = Promise;
 //change this to your own mongo collection
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern");
 
