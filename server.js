@@ -21,9 +21,6 @@ app.use(cookieParser());
 app.use(flash())
 // app.use(expressValidator(middlewareOptions));
 
-
-app.use(express.static('public'));
-
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
