@@ -34,5 +34,8 @@ export default {
   },
   getUser: function(){
     return axios.get("/auth/user");
+  },
+  meetupLogIn: function() {
+    return axios.get("/auth/meetup")
   }
 };

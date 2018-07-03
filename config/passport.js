@@ -199,6 +199,33 @@ passport.use(new FacebookStrategy({
 
 }));
 
+
+// Use the MeetupStrategy within Passport.
+//   Strategies in passport require a `verify` function, which accept
+//   credentials (in this case, a token, tokenSecret, and Meetup profile), and
+//   invoke a callback with a user object.
+passport.use(new MeetupStrategy({
+    consumerKey: keys.meetup.consumerKey,
+    consumerSecret: keys.meetup.consumerSecret,
+    callbackURL: "/auth/meetup/callback"
+  },
+  function(token, tokenSecret, profile, done) {
+    console.log(profile);
+    console.log("ID: " + profile.id);
+    console.log("Display name: " + profile.displayName);
+    console.log("meetup passport callback");
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      
+      // To keep the example simple, the user's Meetup profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the Meetup account with a user record in your database,
+      // and return that user instead.
+      return done(null, profile);
+    });
+  }
+));
+
 //generate hash for password
 function generateHash(password) {
     return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);

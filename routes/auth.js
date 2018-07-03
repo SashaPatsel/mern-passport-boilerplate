@@ -141,4 +141,23 @@ router.get("/facebook/callback", passport.authenticate('facebook'), (req, res) =
 
 });
 
+
+router.get('/auth/meetup',
+  passport.authenticate('meetup'),
+  function(req, res){
+    // The request will be redirected to Meetup for authentication, so this
+    // function will not be called.
+  });
+
+// GET /auth/meetup/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+router.get('/auth/meetup/callback', 
+  passport.authenticate('meetup', { failureRedirect: '/landing' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
 module.exports = router;
