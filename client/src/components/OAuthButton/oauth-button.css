@@ -1,0 +1,21 @@
+.btn-text--anim-trig:hover .btn-text {
+  background-color: #034078;;
+  color: white;
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.27);
+  transform: translateY(-2px);
+}
+
+.btn-text:active {
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.27);
+  transform: translateY(-2px);
+}
+
+.btn-text:link,
+.btn-text:visited {
+  font-size: 1.6rem;
+  color: #034078;;
+  display: inline-block;
+  text-decoration: none;
+  border-bottom: 1px solid #034078;;
+  padding: 3px;
+}
