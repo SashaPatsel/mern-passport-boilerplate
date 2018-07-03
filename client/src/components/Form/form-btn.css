@@ -1,5 +1,8 @@
 .mern-form-btn {
   border-radius: 8px;
-  background-color: rgb(229,183,43);
+  background: linear-gradient(
+    to right bottom,
+  rgba(18, 131, 162, 0.705), 
+  rgba(0, 31, 84, 0.705));
   margin-top: 3px;
 }

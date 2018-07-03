@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Books from "./pages/Books";
-import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Landing from "./pages/Landing/Landing.js";
