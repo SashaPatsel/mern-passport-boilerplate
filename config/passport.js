@@ -4,6 +4,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const GoogleStrategy = require("passport-google-oauth20");
 const FacebookStrategy = require("passport-facebook");
+const MeetupStrategy = require('passport-meetup').Strategy;
 const keys = require("../keys.js");
 const User = require("../models/user.js");
 //middleware to encrypt passwords
@@ -12,8 +13,13 @@ const bCrypt = require("bcrypt-nodejs");
 // Passport session setup
 passport.serializeUser(function(user, done) {
     console.log("user",user,"done", done)
-    console.log("serialize" + user[0]._id);
+    if (user[0]) {
+    console.log("serialize[0]" + user[0]._id);
     done(null, user[0]._id);
+    } else {
+        console.log("serialize" + user._id);
+        done(null, user._id);
+    }
 });
 
 // used to deserialize the user
@@ -34,7 +40,6 @@ passport.use('local-signup', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-
     },
     function(req, email, password, done) {
         process.nextTick(function() {
@@ -198,6 +203,33 @@ passport.use(new FacebookStrategy({
     });
 
 }));
+
+
+// Use the MeetupStrategy within Passport.
+//   Strategies in passport require a `verify` function, which accept
+//   credentials (in this case, a token, tokenSecret, and Meetup profile), and
+//   invoke a callback with a user object.
+passport.use(new MeetupStrategy({
+    consumerKey: keys.meetup.consumerKey,
+    consumerSecret: keys.meetup.consumerSecret,
+    callbackURL: "/auth/meetup/callback"
+  },
+  function(token, tokenSecret, profile, done) {
+    console.log(profile);
+    console.log("ID: " + profile.id);
+    console.log("Display name: " + profile.displayName);
+    console.log("meetup passport callback");
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+      
+      // To keep the example simple, the user's Meetup profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the Meetup account with a user record in your database,
+      // and return that user instead.
+      return done(null, profile);
+    });
+  }
+));
 
 //generate hash for password
 function generateHash(password) {

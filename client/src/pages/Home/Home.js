@@ -16,14 +16,22 @@ state = {
       API.getUser()
       .then(user=>{
         console.log(user)
-        this.setState({
-          isLoggedIn: user.data.loggedIn,
-          userName: user.data.userName,
-          email: user.data.email
-        });
-        console.log(this.state)
       })
 
+    const home = this
+    
+      async function setUserInfo() {
+        const cookie = document.cookie.split(";");
+        console.log("cookie", cookie)
+        let userName = cookie[0];
+        userName = userName.split("=");
+        userName = userName[1];
+        console.log("userName:", userName);
+        home.setState({
+          userName: userName
+        })
+      }
+      setUserInfo()
   }
 
   logout = () => {

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Books from "./pages/Books";
-import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
 import Landing from "./pages/Landing/Landing.js";
@@ -35,7 +33,8 @@ componentWillMount(){
     const cookie = document.cookie.split(";");
     console.log("cookie", cookie)
     // covert to tru
-    if (this.state.isLoggedIn) {
+    // if (this.state.isLoggedIn || cookie.length ) {
+      if(this.state.isLoggedIn) {
       return (
         <Router>
             <div>

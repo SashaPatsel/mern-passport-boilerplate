@@ -33,7 +33,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
 cookie: {
-  expires: 60 *1000,
+  expires: 2592000000,
   httpOnly: false
 }
 }));
@@ -44,7 +44,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/mern");
 
 // Init passport authentication 
 app.use(passport.initialize());
-// persistent login sessions 
+// persistent login sessions. Session expires after 6 months, or when deleted by user 
 app.use(passport.session());
 
 // enable CORS so that browsers don't block requests.

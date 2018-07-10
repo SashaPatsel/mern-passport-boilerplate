@@ -12,7 +12,8 @@ var UserSchema = new Schema({
   userName: {
     type: String,
     trim: true,
-    required: "Username is Required"
+    required: "Username is Required",
+    unique: true
   },
   // `password` must be of type String
   // `password` will trim leading and trailing whitespace before it's saved

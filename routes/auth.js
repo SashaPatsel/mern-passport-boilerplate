@@ -45,20 +45,20 @@ router.post("/signup", (req, res, next) => {
 
     if (!user) {
       console.log("not a user")
-      return res.redirect("/");
+      return res.send("Please re-enter your email and password");
     }
 
     req.login(user, (err) => {
       if (err) {
         console.log("auth error")
         return next(err);
-      } else {
+      } 
         res.cookie("userName", req.user.userName);
         res.cookie("email", req.body.email)
         res.cookie("user_id", req.user.id);
         console.log("confrim")
         return res.redirect("/");
-      }
+      
 
     })
   })(req, res, next);
@@ -78,7 +78,7 @@ router.post("/signin", (req, res, next) => {
     if (!user) {
       console.log("not a user")
       req.flash('notify', 'This is a test notification.')
-      return res.redirect("/");
+      return res.send("Please re-enter your email and password");
     }
 
     req.login(user, (err) => {
@@ -140,5 +140,26 @@ router.get("/facebook/callback", passport.authenticate('facebook'), (req, res) =
   return res.redirect("/");
 
 });
+
+
+router.get('/meetup',
+  passport.authenticate('meetup'),
+  function(req, res){
+    // The request will be redirected to Meetup for authentication, so this
+    // function will not be called.
+    console.log("150")
+  });
+
+// GET /auth/meetup/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request.  If authentication fails, the user will be redirected back to the
+//   login page.  Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+router.get('/meetup/callback', 
+  passport.authenticate('meetup', { failureRedirect: '/landing' }),
+  function(req, res) {
+    console.log("meetup161")
+    res.redirect('/');
+  });
 
 module.exports = router;

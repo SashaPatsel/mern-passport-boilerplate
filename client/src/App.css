@@ -1,0 +1,5 @@
+html {
+  /* this makes it a lot easier to calcute rem. 62.5 is 10/16 so our defualt fontsize is relative to user settings */
+  /* defines what 1 rem is */
+  font-size: 62.5%;
+}
