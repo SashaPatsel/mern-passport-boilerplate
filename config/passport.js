@@ -4,6 +4,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const GoogleStrategy = require("passport-google-oauth20");
 const FacebookStrategy = require("passport-facebook");
+const MeetupStrategy = require('passport-meetup').Strategy;
 const keys = require("../keys.js");
 const User = require("../models/user.js");
 //middleware to encrypt passwords
@@ -12,8 +13,13 @@ const bCrypt = require("bcrypt-nodejs");
 // Passport session setup
 passport.serializeUser(function(user, done) {
     console.log("user",user,"done", done)
-    console.log("serialize" + user[0]._id);
+    if (user[0]) {
+    console.log("serialize[0]" + user[0]._id);
     done(null, user[0]._id);
+    } else {
+        console.log("serialize" + user._id);
+        done(null, user._id);
+    }
 });
 
 // used to deserialize the user
@@ -34,7 +40,6 @@ passport.use('local-signup', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-
     },
     function(req, email, password, done) {
         process.nextTick(function() {

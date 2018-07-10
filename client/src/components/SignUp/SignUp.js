@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import "./signup.css"
 import { Input, TextArea, FormBtn } from "../Form";
 import Card from "../Card/Card.js"
+import OAuthButton from "../OAuthButton/OAuthButton.js"
 
 class SignUp extends Component {
   state = {
@@ -41,10 +42,10 @@ class SignUp extends Component {
           })
         }).then(response => {
           console.log(response);
-    
+
           window.location.href = "/";
         }).catch(err => console.log(err));
-    
+
         this.setState({
           userName: "",
           email: "",
@@ -65,9 +66,9 @@ class SignUp extends Component {
     return (
       <div>
         <div className="dead-center">
-        <h2 className="center">Join Us!</h2>
+          <h2 className="center">Join Us!</h2>
           <Card>
-            
+
             <form>
               <Input
                 value={this.state.userName}
@@ -101,6 +102,9 @@ class SignUp extends Component {
                 Sign Up
               </FormBtn>
             </form>
+
+
+            <OAuthButton />
           </Card>
         </div>
       </div>

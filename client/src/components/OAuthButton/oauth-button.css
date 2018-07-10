@@ -1,8 +1,9 @@
 .btn-text--anim-trig:hover .btn-text {
-  background-color: #034078;;
-  color: white;
-  box-shadow: 0 1rem 2rem rgba(0,0,0,.27);
+  /* background-color: rgb(244,67,98); */
+  color: rgb(244,67,98);
+  /* box-shadow: 0 1rem 2rem rgba(0,0,0,.27); */
   transform: translateY(-2px);
+  /* -webkit-background-clip: text; */
 }
 
 .btn-text:active {
@@ -11,11 +12,18 @@
 }
 
 .btn-text:link,
-.btn-text:visited {
-  font-size: 1.6rem;
-  color: #034078;;
+.btn-text:visited  {
+  font-size: 5rem;
+  
+  color: white;
   display: inline-block;
   text-decoration: none;
-  border-bottom: 1px solid #034078;;
-  padding: 3px;
+  padding: .2rem;
+  position: relative;
+  top: 50%;
+  left: 20%;
+  border-radius: 100px;
+  text-align: center;
+  width: 9rem;
 }
+

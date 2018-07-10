@@ -33,7 +33,8 @@ componentWillMount(){
     const cookie = document.cookie.split(";");
     console.log("cookie", cookie)
     // covert to tru
-    if (this.state.isLoggedIn) {
+    // if (this.state.isLoggedIn || cookie.length ) {
+      if(this.state.isLoggedIn) {
       return (
         <Router>
             <div>
